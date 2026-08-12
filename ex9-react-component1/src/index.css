@@ -1,0 +1,13 @@
+.banner-img{
+    width: 800px;
+    height: 300px;
+}
+
+.header{
+    background-color: orange;
+    width: 100%;;
+}
+
+.custom {
+    text-decoration: none !important;
+}

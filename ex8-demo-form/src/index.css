@@ -1,0 +1,12 @@
+.card {
+  border-radius: 12px;
+}
+
+label {
+  font-weight: 500;
+}
+.myButton {
+    height: 100%;
+    width: 100%;
+    background-color: #3b82f6;
+}

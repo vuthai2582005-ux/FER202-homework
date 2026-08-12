@@ -1,0 +1,26 @@
+body {
+  background-color: #333333;
+  color: #ffffff;
+  font-family: Arial, sans-serif;
+}
+
+/* Hero Carousel Custom Height & Overlay */
+.hero-img {
+  height: 400px;
+  object-fit: cover;
+  filter: brightness(0.65);
+}
+
+.hero-caption {
+  bottom: 30%;
+}
+
+.hero-caption h3 {
+  font-size: 2.5rem;
+  font-weight: bold;
+}
+
+/* Custom placeholder color for inputs */
+::placeholder {
+  color: #888888 !important;
+}

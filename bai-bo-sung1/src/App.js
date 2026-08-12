@@ -1,12 +1,14 @@
 import React from "react";
+import 'bootstrap/dist/css/bootstrap.min.css';
+import { useState } from "react";
 
 function App() {
-  const products = [
+  const [products, setProducts] = useState([
     { id: 1, name: "Laptop ASUS", inputPrice: 15000, outPrice: 18500, stock: 5 },
     { id: 2, name: "Chuột", inputPrice: 300, outPrice: 450, stock: 0 },
     { id: 3, name: "Bàn phím", inputPrice: 800, outPrice: 1200, stock: 10 },
     { id: 4, name: "Màn hình Dell", inputPrice: 3500, outPrice: 4200, stock: 2 },
-  ];
+  ]);
 
   const maxPriceProduct = products.reduce((max, item) =>
     item.outPrice > max.outPrice ? item : max
@@ -17,11 +19,21 @@ function App() {
     , products[0]);
 
   const sortedByProfitDesc = products
-    .map((item) => ({
+    .map((item) => ({ 
       ...item,
       profit: item.outPrice - item.inputPrice,
     }))
     .sort((a, b) => b.profit - a.profit);
+
+  const handleBuyNow = (productId) => {
+    const updatedProducts = products.map((item) => {
+      if (item.id === productId) {
+        return { ...item, stock: item.stock - 1 };
+      }
+      return item;
+    });
+    setProducts(updatedProducts);
+  };
 
   return (
     <div style={{ padding: "30px" }}>
@@ -31,16 +43,16 @@ function App() {
       <table
         border="1"
         cellPadding="10"
-        style={{ borderCollapse: "collapse", width: "100%", maxWidth: "700px" }}
       >
         <thead>
           <tr style={{ backgroundColor: "#f2f2f2" }}>
             <th>ID</th>
-            <th>Tên sản phẩm</th>
-            <th>Giá nhập</th>
-            <th>Giá bán</th>
-            <th>Tồn kho</th>
-            <th>Trạng thái</th>
+            <th>Name</th>
+            <th>InputPrice</th>
+            <th>OutPrice</th>
+            <th>Stock</th>
+            <th>Status</th>
+            <th>Action</th>
           </tr>
         </thead>
         <tbody>
@@ -57,7 +69,12 @@ function App() {
                   fontWeight: "bold",
                 }}
               >
-                {item.stock > 0 ? "Còn hàng" : "Hết hàng"}
+                {item.stock > 0 ? "InStock" : "OutStock "}
+              </td>
+              <td>
+                <button className="btn btn-primary"
+                disabled={item.stock===0} 
+                onClick={() => handleBuyNow(item.id)}>Buy Now</button>
               </td>
             </tr>
           ))}
@@ -73,18 +90,16 @@ function App() {
       </p>
 
       <h2>3. Sắp xếp theo Lợi Nhuận (Giảm dần)</h2>
-      <p><i>(Công thức: Lợi nhuận = Giá bán - Giá nhập)</i></p>
       <table
         border="1"
         cellPadding="10"
-        style={{ borderCollapse: "collapse", width: "100%", maxWidth: "700px" }}
       >
         <thead>
           <tr style={{ backgroundColor: "#e6f7ff" }}>
-            <th>Tên sản phẩm</th>
-            <th>Giá nhập</th>
-            <th>Giá bán</th>
-            <th>Lợi nhuận</th>
+            <th>Name</th>
+            <th>InputPrice</th>
+            <th>OutPrice</th>
+            <th>Profit</th>
           </tr>
         </thead>
         <tbody>
