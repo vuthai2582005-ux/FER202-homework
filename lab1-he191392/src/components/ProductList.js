@@ -1,10 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Col, Row } from 'react-bootstrap';
 import ProductCard from './ProductCard';
 
-function ProductList() {
+function ProductList({ onAddToCartSuccess }) {
 
-    const menuItems = [
+    const initialMenuItems = [
         {
             id: 1,
             name: 'Ao',
@@ -55,17 +55,44 @@ function ProductList() {
         },
     ];
 
+    const [menuItems, setMenuItems] = useState(initialMenuItems);
+
+    const handleAddToCart = (id) => {
+        const itemToUpdate = menuItems.find((item) => item.id === id);
+        if (itemToUpdate && itemToUpdate.quantity > 0) {
+            setMenuItems((prevItems) =>
+                prevItems.map((item) => {
+                    if (item.id === id) {
+                        const newQuantity = item.quantity - 1;
+                        return {
+                            ...item,
+                            quantity: newQuantity,
+                            status: newQuantity === 0 ? 'Hết hàng' : item.status,
+                        };
+                    }
+                    return item;
+                })
+            );
+            onAddToCartSuccess?.();
+        }
+    };
+
     return (
-        <header className="bg-primary text-white p-3">
+        <header className="text-white p-3">
             <Row>
                 {
-                    menuItems.map((i) => {
-                        <Col md={4}>
-                            <ProductCard image={i.image} name={i.name} 
-                            price={i.price} status={i.status}
-                            quantity = {i.quantity}/>
+                    menuItems.map((i) => (
+                        <Col md={4} key={i.id} className="mb-4">
+                            <ProductCard 
+                                image={i.image} 
+                                name={i.name}
+                                price={i.price} 
+                                status={i.status}
+                                quantity={i.quantity}
+                                onAddToCart={() => handleAddToCart(i.id)} 
+                            />
                         </Col>
-                    })
+                    ))
                 }
             </Row>
         </header>
