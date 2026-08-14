@@ -11,6 +11,16 @@ function StudentList({ students, setStudents, handleDelete }) {
         handleDelete(id);
     };
 
+    const handleToggleStatus = (id) => {
+        setStudents(prevStudents =>
+            prevStudents.map(student =>
+                student.id === id
+                    ? { ...student, status: student.status === 'PRESENT' ? 'ABSENT' : 'PRESENT' }
+                    : student
+            )
+        );
+    };
+
     return (
         <div className='mt-4 ms-4 me-4'>
             <p className="fw-semibold">
@@ -39,9 +49,13 @@ function StudentList({ students, setStudents, handleDelete }) {
                                 <td>{c.name}</td>
                                 <td>{c.date}</td>
                                 <td>
-                                    <span className={`badge ${c.status === 'PRESENT' ? 'bg-success' : 'bg-danger'}`}>
+                                    <button
+                                        type="button"
+                                        className={`badge ${c.status === 'PRESENT' ? 'bg-success' : 'bg-danger'}`}
+                                        onClick={() => handleToggleStatus(c.id)}
+                                    >
                                         {c.status}
-                                    </span>
+                                    </button>
                                 </td>
                                 <td>
                                     <button
