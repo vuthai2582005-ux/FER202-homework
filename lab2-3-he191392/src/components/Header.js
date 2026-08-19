@@ -14,7 +14,8 @@ function Header({ theme, setTheme }) {
                   color: theme === "Light" ? "black" : "white",
                   padding: "10px"
                 }}>
-                <h3>Hệ Thống Quản Lý Điểm Danh Lớp Học</h3>
+                <h3>Hệ Thống Quản Lý Điểm Danh Lớp Học </h3>
+                <h3>Vũ Doanh Thái-HE191392</h3>
                 <button onClick={() => setTheme(theme === "Light" ? "Dark" : "Light")}>
                   {theme === "Light" ? <CiDark /> : <CiLight />}
                 </button>

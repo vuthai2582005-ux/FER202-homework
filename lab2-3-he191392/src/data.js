@@ -1,8 +1,8 @@
 export const initialAttendances = [
   {
     id: 1,
-    name: "Đỗ Anh Quân",
-    classId: "SE2601",
+    name: "Vũ Doanh Thái",
+    classId: "HE191392",
     date: "2026-08-14T00:00:00.000Z",
     status: "PRESENT",
   },

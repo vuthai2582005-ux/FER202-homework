@@ -1,24 +1,26 @@
 
-import React, { useState } from 'react';
+import React, { useMemo } from 'react';
 import { Button, Form } from 'react-bootstrap';
 
-function StudentList({ students, setStudents, handleDelete }) {
-    const presentCount = students.filter(s => s.status === 'PRESENT').length;
-    const absentCount = students.filter(s => s.status === 'ABSENT').length;
-    const attendanceRate = students.length > 0 ? ((presentCount / students.length) * 100).toFixed(1) : 0;
+function StudentList({ students, handleToggleStatus, handleDelete }) {
+    // Feature 3: Dùng useMemo để tính toán thống kê dựa trên mảng students
+    const { totalCount, presentCount, absentCount, attendanceRate } = useMemo(() => {
+        const total = students.length;
+        const present = students.filter(s => s.status === 'PRESENT').length;
+        const absent = students.filter(s => s.status === 'ABSENT').length;
+        const rate = total > 0 ? ((present / total) * 100).toFixed(1) : 0;
+        return {
+            totalCount: total,
+            presentCount: present,
+            absentCount: absent,
+            attendanceRate: rate
+        };
+    }, [students]);
 
     const onDelete = (id) => {
-        handleDelete(id);
-    };
-
-    const handleToggleStatus = (id) => {
-        setStudents(prevStudents =>
-            prevStudents.map(student =>
-                student.id === id
-                    ? { ...student, status: student.status === 'PRESENT' ? 'ABSENT' : 'PRESENT' }
-                    : student
-            )
-        );
+        if (window.confirm("Xác nhận lại?")) {
+            handleDelete(id);
+        }
     };
 
     return (
@@ -47,7 +49,13 @@ function StudentList({ students, setStudents, handleDelete }) {
                                 <td>{c.id}</td>
                                 <td>{c.classId}</td>
                                 <td>{c.name}</td>
-                                <td>{c.date}</td>
+                                <td>
+                                    {new Date(c.date).toLocaleString("vi-VN", {
+                                        month: "2-digit",
+                                        day: "2-digit",
+                                        year: "numeric",
+                                    })}
+                                </td>
                                 <td>
                                     <button
                                         type="button"
