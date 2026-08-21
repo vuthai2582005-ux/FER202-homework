@@ -10,6 +10,7 @@ function Header({
     onRefresh = () => { }
 }) {
     return (
+    
         <div className='mt-4 ms-4 me-4' >
             <Row style={{ borderRadius: "10px", border: "1px solid #ccc", maxWidth: '50%' }} className="p-2 text-center align-items-center">
                 <Col md={2}><strong>Courses</strong></Col>
@@ -22,14 +23,14 @@ function Header({
                 <Col md={4}>
                     <p className='text-muted mb-1'>Welcome back Lecture</p>
                     <h2 className='fw-bold'>My Courses</h2>
-                    <Form.Group className='mt-3'>
-                        <Form.Control
-                            type="text"
-                            placeholder="Search Courses"
-                            value={searchTerm}
-                            onChange={(e) => setSearchTerm(e.target.value)}
-                        />
-                    </Form.Group>
+                        <Form.Group className='mt-3'>
+                            <Form.Control
+                                type="text"
+                                placeholder="Search Courses"
+                                value={searchTerm}
+                                onChange={(e) => setSearchTerm(e.target.value)}
+                            />
+                        </Form.Group>
                 </Col>
                 <Col md={4}>
                     <p className='mb-1'>Semester</p>
@@ -44,7 +45,7 @@ function Header({
                         </Form.Select>
                         <Button onClick={onRefresh}>Refresh</Button>
                     </div>
-                    <div className='mt-3 text-muted'>{subjects.length} courses</div>
+                    <div className='mt-3 text-muted text-end'>{subjects.length} courses</div>
                 </Col>
             </Row>
         </div>

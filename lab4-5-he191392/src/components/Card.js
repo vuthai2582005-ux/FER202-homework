@@ -1,11 +1,10 @@
 import React from 'react'
-import { Col, Row } from 'react-bootstrap'
 import { useNavigate } from 'react-router-dom';
 
 function Card({ subjects = [] }) {
     const navigate = useNavigate();
     return (
-        <div className="row row-cols-1 row-cols-md-4 g-3 ms-3 mt-4">
+        <div className="row row-cols-1 row-cols-md-4 g-3 ms-3 mt-4 me-4">
             {subjects.map(item => (
                 <div className="col" key={item.id}>
                     <div className="card h-100 shadow-sm">

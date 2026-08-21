@@ -12,7 +12,7 @@ function Product({ subjects = [] }) {
         <div className="ms-4 mt-4">
             <div>
                 <p>
-                    <span>
+                    <span onClick={() => navigate('/courses')}>
                         My Courses
                     </span>
                     {' > '}
@@ -23,7 +23,8 @@ function Product({ subjects = [] }) {
             </div>
             <div>
                 <button className="btn btn-secondary" onClick={() => navigate('/courses')}>
-                    Back
+                    <span>&larr;</span>
+                    <span>Back</span>
                 </button>
             </div>
         </div>

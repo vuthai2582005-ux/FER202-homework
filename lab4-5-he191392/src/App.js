@@ -17,12 +17,11 @@ function ClassManagement({ subjects = [] }) {
     };
 
     const filteredSubjects = subjects.filter(item => {
-        const matchesSearch = !searchTerm.trim() || 
-            (item.nameEn && item.nameEn.toLowerCase().includes(searchTerm.toLowerCase().trim())) ||
+        const matchesSearch = (item.nameEn && item.nameEn.toLowerCase().includes(searchTerm.toLowerCase().trim())) ||
             (item.nameVi && item.nameVi.toLowerCase().includes(searchTerm.toLowerCase().trim())) ||
             (item.code && item.code.toLowerCase().includes(searchTerm.toLowerCase().trim()));
 
-        const matchesSemester = !selectedSemester || item.semester === selectedSemester;
+        const matchesSemester = item.semester === selectedSemester;
 
         return matchesSearch && matchesSemester;
     });
